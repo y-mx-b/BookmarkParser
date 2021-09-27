@@ -1,7 +1,7 @@
 #if os(macOS)
 import Foundation
 
-extension BookmarkManager {
+public extension BookmarkManager {
     public struct SafariBookmarkManager: BrowserBookmarkManager {
         public func getBookmarks(from bookmarksFilePath: URL) -> Data? {
             // TODO change fuction to throw, make safer

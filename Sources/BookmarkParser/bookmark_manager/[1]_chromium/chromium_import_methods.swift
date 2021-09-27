@@ -1,6 +1,6 @@
 import Foundation
 
-extension BookmarkManager {
+public extension BookmarkManager {
     public struct ChromiumBookmarkManager: BrowserBookmarkManager {
         public func getBookmarks(from bookmarksFilePath: URL) -> Data? {
             // TODO change function to a throwing one, make things safer
