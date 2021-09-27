@@ -1,6 +1,6 @@
 import Foundation
 
-struct ChromiumChildren: Codable {
+public struct ChromiumChildren: Codable {
     let children: [ChromiumChildren]?
     let date_added: String
     let guid: String
