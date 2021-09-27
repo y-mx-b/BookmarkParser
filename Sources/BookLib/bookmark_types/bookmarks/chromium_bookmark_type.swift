@@ -10,7 +10,7 @@ struct ChromiumChildren: Codable {
     let url: String?
 }
 
-struct ChromiumBookmarks: Codable {
+public struct ChromiumBookmarks: Codable {
     let checksum: String
     struct Roots: Codable {
         let bookmark_bar: ChromiumChildren

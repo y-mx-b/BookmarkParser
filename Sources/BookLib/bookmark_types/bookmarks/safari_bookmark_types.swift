@@ -4,7 +4,8 @@ import Foundation
 struct SafariURIDictionary: Codable {
     let title: String
 }
-struct SafariChildren: Codable {
+
+public struct SafariChildren: Codable {
     let WebBookmarkUUID: String
     let Title: String?
     let Children: [SafariChildren]?
