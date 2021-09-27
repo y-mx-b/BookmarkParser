@@ -1,6 +1,6 @@
 import Foundation
 
-struct BookmarkManager {
+public struct BookmarkManager {
     // TODO remove hard-coded bookmarks directory
     var browserName: String?
     var bookmarksFilePath: String?
