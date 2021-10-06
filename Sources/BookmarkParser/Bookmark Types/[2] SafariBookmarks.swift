@@ -1,7 +1,7 @@
 #if os(macOS)
 import Foundation
 
-struct SafariURIDictionary: Codable {
+public struct SafariURIDictionary: Codable {
     let title: String
 }
 
