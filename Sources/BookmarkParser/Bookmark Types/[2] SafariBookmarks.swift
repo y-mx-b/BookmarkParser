@@ -1,4 +1,3 @@
-#if os(macOS)
 import Foundation
 
 public struct SafariURIDictionary: Codable {
@@ -13,4 +12,3 @@ public struct SafariChildren: Codable {
     let WebBookmarkType: String
     let URIDictionary: SafariURIDictionary?
 }
-#endif

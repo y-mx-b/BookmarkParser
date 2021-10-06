@@ -1,4 +1,3 @@
-#if os(macOS)
 import Foundation
 
 struct SafariBookmarkManager: BrowserBookmarkParser {
@@ -21,4 +20,3 @@ struct SafariBookmarkManager: BrowserBookmarkParser {
         return data
     }
 }
-#endif
