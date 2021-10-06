@@ -5,4 +5,5 @@ public enum Browser: String {
     case edge
     case safari
     case firefox
+    case qutebrowser
 }
