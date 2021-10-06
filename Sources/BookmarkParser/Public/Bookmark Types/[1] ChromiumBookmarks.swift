@@ -1,5 +1,11 @@
 import Foundation
 
+public struct Roots: Codable {
+    let bookmark_bar: ChromiumChildren
+    let other: ChromiumChildren
+    let synced: ChromiumChildren
+}
+
 public struct ChromiumChildren: Codable {
     let children: [ChromiumChildren]?
     let date_added: String
@@ -12,11 +18,6 @@ public struct ChromiumChildren: Codable {
 
 public struct ChromiumBookmarks: Codable {
     let checksum: String
-    struct Roots: Codable {
-        let bookmark_bar: ChromiumChildren
-        let other: ChromiumChildren
-        let synced: ChromiumChildren
-    }
     let roots: Roots
     let version: Int
 }
