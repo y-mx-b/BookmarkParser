@@ -11,6 +11,7 @@ struct SafariBookmarkParser: BrowserBookmarkParser {
             return nil
         }
     }
+
     func parseBookmarks(_ bookmarksDump: Data?) -> SafariChildren? {
         // TODO change function to throw, make safer
         if bookmarksDump == nil { return nil }
@@ -18,5 +19,9 @@ struct SafariBookmarkParser: BrowserBookmarkParser {
         let decoder = PropertyListDecoder()
         let data = try! decoder.decode(SafariChildren.self, from: plistData!)
         return data
+    }
+
+    func returnBookmarks(_ bookmarks: SafariChildren?) -> OnebookBookmarks? {
+        return nil
     }
 }

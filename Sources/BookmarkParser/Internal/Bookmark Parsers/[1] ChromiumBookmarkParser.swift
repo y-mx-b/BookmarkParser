@@ -18,4 +18,8 @@ struct ChromiumBookmarkParser: BrowserBookmarkParser {
         let data = try! decoder.decode(ChromiumBookmarks.self, from: bookmarksDump!)
         return data
     }
+
+    func returnBookmarks(_ bookmarks: ChromiumBookmarks?) -> OnebookBookmarks? {
+        return nil
+    }
 }
