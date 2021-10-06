@@ -1,6 +1,6 @@
 import Foundation
 
-struct SafariBookmarkManager: BrowserBookmarkParser {
+struct SafariBookmarkParser: BrowserBookmarkParser {
     func getBookmarks(from bookmarksFilePath: URL) -> Data? {
         // TODO change fuction to throw, make safer
         do {
