@@ -1,27 +1,23 @@
 import Foundation
 
 struct SafariBookmarkParser: BrowserBookmarkParser {
-    func getBookmarks(from bookmarksFilePath: URL) -> Data? {
-        // TODO change fuction to throw, make safer
-        do {
-            let contents = try Data(contentsOf: bookmarksFilePath)
-            return contents
-        } catch {
-            print(error)
-            return nil
-        }
+    func getBookmarks(from bookmarksFilePath: String) throws -> Data {
+        let fm = FileManager.default
+        guard fm.fileExists(atPath: bookmarksFilePath)
+            else { throw BrowserBookmarkParserError.noBookmarkFile(bookmarksFilePath) }
+        guard let contents = fm.contents(atPath: bookmarksFilePath)
+            else { throw BrowserBookmarkParserError.emptyBookmarksFile(bookmarksFilePath) }
+        return contents
     }
 
-    func parseBookmarks(_ bookmarksDump: Data?) -> SafariChildren? {
-        // TODO change function to throw, make safer
-        if bookmarksDump == nil { return nil }
-        let plistData = bookmarksDump
-        let decoder = PropertyListDecoder()
-        let data = try! decoder.decode(SafariChildren.self, from: plistData!)
-        return data
+    func parseBookmarks(_ bookmarksDump: Data) throws -> SafariChildren {
+        guard let bookmarks = try? PropertyListDecoder().decode(SafariChildren.self, from: bookmarksDump)
+            else { throw BrowserBookmarkParserError.improperBookmarkData }
+        return bookmarks
     }
 
-    func returnBookmarks(_ bookmarks: SafariChildren?) -> OnebookBookmarks? {
+    func returnBookmarks(_ bookmarks: SafariChildren) -> OnebookBookmarks? {
+        // TODO implement this
         return nil
     }
 }

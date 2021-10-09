@@ -1,8 +1,9 @@
 import Foundation
 
 protocol BrowserBookmarkParser {
-    associatedtype BookmarkType
-    func getBookmarks(from bookmarksFilePath: URL) -> Data?
-    func parseBookmarks(_ bookmarksDump: Data?) -> BookmarkType?
-    func returnBookmarks(_ bookmarks: BookmarkType?) -> OnebookBookmarks?
+    associatedtype BookmarkType: Codable
+    func getBookmarks(from bookmarksFilePath: String) throws -> Data
+    func parseBookmarks(_ bookmarksDump: Data) throws -> BookmarkType
+    func returnBookmarks(_ bookmarks: BookmarkType) throws -> OnebookBookmarks?
+    // remove optional later
 }

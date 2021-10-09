@@ -1,25 +1,23 @@
 import Foundation
 
 struct ChromiumBookmarkParser: BrowserBookmarkParser {
-    func getBookmarks(from bookmarksFilePath: URL) -> Data? {
-        // TODO change function to a throwing one, make things safer
-        do {
-            let contents = try Data(contentsOf: bookmarksFilePath)
-            return contents
-        } catch {
-            return nil
-        }
-    }
-    func parseBookmarks(_ bookmarksDump: Data?) -> ChromiumBookmarks? {
-        // TODO change function to a throwing one, make things safer
-        if bookmarksDump == nil { return nil }
-
-        let decoder = JSONDecoder()
-        let data = try! decoder.decode(ChromiumBookmarks.self, from: bookmarksDump!)
-        return data
+    func getBookmarks(from bookmarksFilePath: String) throws -> Data {
+        let fm = FileManager.default
+        guard fm.fileExists(atPath: bookmarksFilePath)
+            else { throw BrowserBookmarkParserError.noBookmarkFile(bookmarksFilePath) }
+        guard let contents = fm.contents(atPath: bookmarksFilePath)
+            else { throw BrowserBookmarkParserError.emptyBookmarksFile(bookmarksFilePath) }
+        return contents
     }
 
-    func returnBookmarks(_ bookmarks: ChromiumBookmarks?) -> OnebookBookmarks? {
+    func parseBookmarks(_ bookmarksDump: Data) throws -> ChromiumBookmarks {
+        guard let bookmarks = try? JSONDecoder().decode(ChromiumBookmarks.self, from: bookmarksDump)
+            else { throw BrowserBookmarkParserError.improperBookmarkData }
+        return bookmarks
+    }
+
+    func returnBookmarks(_ bookmarks: ChromiumBookmarks) -> OnebookBookmarks? {
+        // TODO implement this
         return nil
     }
 }
