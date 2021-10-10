@@ -6,7 +6,7 @@ public enum BrowserBookmarkParserError: Error {
     case improperBookmarkData
 }
 
-public struct BookmarkParser: BrowserBookmarkParser {
+public struct BookmarkParser<T: Codable>: BrowserBookmarkParser {
     public var browser: Browser
     public var bookmarksFilePath: String? { BookmarkPaths[browser] }
 
@@ -24,7 +24,7 @@ public struct BookmarkParser: BrowserBookmarkParser {
         }
     }
 
-    public func parseBookmarks<T: Codable>(_ bookmarksDump: Data) throws -> T {
+    public func parseBookmarks(_ bookmarksDump: Data) throws -> T {
         switch browser {
         // CHROMIUM
         case .chromium, .chrome, .brave, .edge:
@@ -38,7 +38,7 @@ public struct BookmarkParser: BrowserBookmarkParser {
         }
     }
 
-    public func returnBookmarks<T: Codable>(_ bookmarks: T) -> OnebookBookmarks? {
+    public func returnBookmarks(_ bookmarks: T) -> OnebookBookmarks? {
         return nil
     }
 }
