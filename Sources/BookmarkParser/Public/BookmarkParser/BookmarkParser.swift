@@ -10,7 +10,7 @@ public struct BookmarkParser {
     public var browser: Browser
     public var bookmarksFilePath: String? { BookmarkPaths[browser] }
 
-    public func getBookmarks(from bookmarksFilePath: String) throws -> Data {
+    public func getBookmarks(from bookmarksFilePath: String, browser: Browser) throws -> Data {
         switch browser {
         // CHROMIUM
         case .chromium, .chrome, .brave, .edge:
@@ -24,7 +24,7 @@ public struct BookmarkParser {
         }
     }
 
-    public func parseBookmarks(_ bookmarksDump: Data) throws -> OnebookBookmarks {
+    public func parseBookmarks(_ bookmarksDump: Data, from browser: Browser) throws -> OnebookBookmarks {
         switch browser {
         // CHROMIUM
         case .chromium, .chrome, .brave, .edge:
@@ -41,7 +41,7 @@ public struct BookmarkParser {
         }
     }
 
-    public func convert<T: Codable>(_ bookmarks: OnebookBookmarks) throws -> T? {
+    public func convert<T: Codable>(_ bookmarks: OnebookBookmarks, to: FormatTypes) throws -> T? {
         return nil
     }
 
