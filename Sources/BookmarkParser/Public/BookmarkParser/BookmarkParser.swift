@@ -6,7 +6,7 @@ public enum BrowserBookmarkParserError: Error {
     case improperBookmarkData
 }
 
-public struct BookmarkParser<T: Codable>: BrowserBookmarkParser {
+public struct BookmarkParser {
     public var browser: Browser
     public var bookmarksFilePath: String? { BookmarkPaths[browser] }
 
@@ -24,22 +24,26 @@ public struct BookmarkParser<T: Codable>: BrowserBookmarkParser {
         }
     }
 
-    public func parseBookmarks(_ bookmarksDump: Data) throws -> T {
+    public func parseBookmarks(_ bookmarksDump: Data) throws -> OnebookBookmarks {
         switch browser {
         // CHROMIUM
         case .chromium, .chrome, .brave, .edge:
-            return try ChromiumBookmarkParser().parseBookmarks(bookmarksDump) as! T
+            let bookmarks = try ChromiumBookmarkParser().parseBookmarks(bookmarksDump)
+            return ChromiumBookmarkParser().returnBookmarks(bookmarks)!
         // SAFARI
         case .safari:
-            return try SafariBookmarkParser().parseBookmarks(bookmarksDump) as! T
+            let bookmarks = try SafariBookmarkParser().parseBookmarks(bookmarksDump)
+            return SafariBookmarkParser().returnBookmarks(bookmarks)!
         // TODO add other browsers
         default:
-            return try ChromiumBookmarkParser().parseBookmarks(bookmarksDump) as! T
+            let bookmarks = try ChromiumBookmarkParser().parseBookmarks(bookmarksDump)
+            return ChromiumBookmarkParser().returnBookmarks(bookmarks)!
         }
     }
 
-    public func returnBookmarks(_ bookmarks: T) -> OnebookBookmarks? {
+    public func convert<T: Codable>(_ bookmarks: OnebookBookmarks) throws -> T? {
         return nil
     }
+
 }
 
