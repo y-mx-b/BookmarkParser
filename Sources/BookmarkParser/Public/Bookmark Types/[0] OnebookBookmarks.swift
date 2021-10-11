@@ -42,9 +42,13 @@ public struct OnebookChildrenWrapper: OnebookItem, Codable {
         self._children = {
             guard let oldArray = item.children else { return nil }
 
+            // TODO MAKE RECURSIVE, ONLY WORKS IF ARRAY IS NOT NESTED
+
             var array: [OnebookChildrenWrapper] = [OnebookChildrenWrapper(oldArray[0])]
-            for i in 1...oldArray.count-1 {
-                array[i] = OnebookChildrenWrapper(oldArray[i])
+            if oldArray.count > 1 {
+                for i in 1...oldArray.count-1 {
+                    array[i] = OnebookChildrenWrapper(oldArray[i])
+                }
             }
             return array
         }
