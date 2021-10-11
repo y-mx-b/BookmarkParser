@@ -36,12 +36,14 @@ public struct BookmarkParser {
         switch browser {
         // CHROMIUM
         case .chromium, .chrome, .brave, .edge:
-            let bookmarks = try ChromiumBookmarkParser().parseBookmarks(bookmarksDump, from: browser)
-            return ChromiumBookmarkParser().returnBookmarks(bookmarks)!
+            let parser = ChromiumBookmarkParser()
+            let bookmarks = try parser.parseBookmarks(bookmarksDump, from: browser)
+            return parser.returnBookmarks(bookmarks)!
         // SAFARI
-        // case .safari:
-            // let bookmarks = try SafariBookmarkParser().parseBookmarks(bookmarksDump)
-            // return SafariBookmarkParser().returnBookmarks(bookmarks)!
+        case .safari:
+            let parser = SafariBookmarkParser()
+            let bookmarks = try parser.parseBookmarks(bookmarksDump)
+            return parser.returnBookmarks(bookmarks)!
         // TODO add other browsers
         default:
             throw BookmarkParserError.emptyBookmarksFile("sike")
@@ -50,7 +52,7 @@ public struct BookmarkParser {
 
     public func convertBookmarks<BookmarkType>(_ bookmarks: [OnebookChildren],
                                                to format: FormatTypes) throws -> [AnyOnebookItem<BookmarkType>] {
-        // switch format {
+        switch format {
         // case .html:
         //     throw BookmarkParserError.invalidFormatType(format)
         // case .json:
