@@ -1,22 +1,24 @@
 import Foundation
 
-public struct Roots: Codable {
+struct Roots: Codable {
     let bookmark_bar: ChromiumChildren
     let other: ChromiumChildren
     let synced: ChromiumChildren
 }
 
-public struct ChromiumChildren: OnebookItem, Codable {
-    public let name: String
-    public let url: String?
-    public let children: [ChromiumChildren]?
+struct ChromiumChildren: OnebookItem, Codable {
+    typealias ItemType = ChromiumChildren
+
+    let name: String
+    let url: String?
+    let children: [ChromiumChildren]?
     // let date_added: String
     // let guid: String
     // let id: String
     // let type: String
 }
 
-public struct ChromiumBookmarks: Codable {
+struct ChromiumBookmarks: Codable {
     // let checksum: String
     let roots: Roots
     // let version: Int

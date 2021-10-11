@@ -1,19 +1,21 @@
 import Foundation
 
-public struct SafariURIDictionary: Codable {
+struct SafariURIDictionary: Codable {
     let title: String
 }
 
-public struct SafariChildren: OnebookItem, Codable {
-    public var name: String {
+struct SafariChildren: OnebookItem, Codable {
+    typealias ItemType = SafariChildren
+
+    var name: String {
         if let _ = self.Title {
             return self.Title!
         } else {
             return self.URIDictionary!.title
         }
     }
-    public var url: String? { return self.URLString }
-    public var children: [SafariChildren]? { return Children }
+    var url: String? { return self.URLString }
+    var children: [SafariChildren]? { return Children }
 
     // let WebBookmarkUUID: String
     let Title: String?

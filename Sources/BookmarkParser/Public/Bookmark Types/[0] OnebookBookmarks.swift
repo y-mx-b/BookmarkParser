@@ -1,10 +1,34 @@
 import Foundation
 
-public protocol OnebookItem {
+protocol OnebookItem {
     associatedtype ItemType
     var name: String { get }
     var url: String? { get }
     var children: [ItemType]? { get }
+}
+
+public struct AnyOnebookItem<ItemType>: OnebookItem {
+    private let _name: () -> String
+    private let _url: () -> String?
+    private let _children: () -> [ItemType]?
+
+    init<BookmarkType: OnebookItem>(with bookmarks: BookmarkType) where BookmarkType.ItemType == ItemType {
+        self._name = { return bookmarks.name }
+        self._url = { return bookmarks.url }
+        self._children = { return bookmarks.children }
+    }
+
+    public var name: String {
+        return self._name()
+    }
+
+    public var url: String? {
+        return self._url()
+    }
+
+    public var children: [ItemType]? {
+        return self._children()
+    }
 }
 
 public struct OnebookChildren: OnebookItem  {

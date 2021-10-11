@@ -48,14 +48,17 @@ public struct BookmarkParser {
         }
     }
 
-    public func convertBookmarks<BookmarkType>(_ bookmarks: BookmarkType, to format: FormatTypes) throws -> Any {
-        switch format {
+    public func convertBookmarks<BookmarkType>(_ bookmarks: [OnebookChildren],
+                                               to format: FormatTypes) throws -> [AnyOnebookItem<BookmarkType>] {
+        // switch format {
         // case .html:
+        //     throw BookmarkParserError.invalidFormatType(format)
         // case .json:
-        //     return try ChromiumBookmarkParser().convertBookmarks(bookmarks, to: format)
+        //     return
         // case .plist:
         //     return try SafariBookmarkParser().convertBookmarks(bookmarks, to: format)
         // case .sqlite:
+        //     throw BookmarkParserError.invalidFormatType(format)
         // case .onebook:
         //     throw BookmarkParserError.invalidFormatType(format)
         default:
