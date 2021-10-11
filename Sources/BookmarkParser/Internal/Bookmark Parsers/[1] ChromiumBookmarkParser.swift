@@ -1,23 +1,49 @@
 import Foundation
 
 struct ChromiumBookmarkParser: BrowserBookmarkParser {
-    func getBookmarks(from bookmarksFilePath: String) throws -> Data {
+    typealias BookmarkType = ChromiumBookmarks
+
+    let browser: [Browser] = [.chromium, .chrome, .brave, .edge]
+    let format: FormatTypes = .json
+
+    func getBookmarks(from bookmarksFilePath: String, browser: Browser) throws -> Data {
         let fm = FileManager.default
+
+        switch browser {
+        case .chromium, .chrome, .brave, .edge:
+            break
+        default:
+            throw BookmarkParserError.invalidBrowser(browser)
+        }
+
         guard fm.fileExists(atPath: bookmarksFilePath)
-            else { throw BrowserBookmarkParserError.noBookmarkFile(bookmarksFilePath) }
+            else { throw BookmarkParserError.noBookmarkFile(bookmarksFilePath) }
         guard let contents = fm.contents(atPath: bookmarksFilePath)
-            else { throw BrowserBookmarkParserError.emptyBookmarksFile(bookmarksFilePath) }
+            else { throw BookmarkParserError.emptyBookmarksFile(bookmarksFilePath) }
+
         return contents
     }
 
-    func parseBookmarks(_ bookmarksDump: Data) throws -> ChromiumBookmarks {
-        guard let bookmarks = try? JSONDecoder().decode(ChromiumBookmarks.self, from: bookmarksDump)
-            else { throw BrowserBookmarkParserError.improperBookmarkData }
+    func parseBookmarks(_ bookmarksDump: Data, from browser: Browser) throws -> BookmarkType {
+        switch browser {
+        case .chromium, .chrome, .brave, .edge:
+            break
+        default:
+            throw BookmarkParserError.invalidBrowser(browser)
+        }
+
+        guard let bookmarks = try? JSONDecoder().decode(BookmarkType.self, from: bookmarksDump)
+            else { throw BookmarkParserError.improperBookmarkData }
+
         return bookmarks
     }
 
-    func returnBookmarks(_ bookmarks: ChromiumBookmarks) -> OnebookBookmarks? {
-        // TODO implement this
+    func returnBookmarks(_ bookmarks: BookmarkType) -> OnebookBookmarks? {
+        return nil
+    }
+
+    func convertBookmarks(_ bookmarks: OnebookBookmarks, to format: FormatTypes) throws -> BookmarkType? {
+        guard format == .json else { throw BookmarkParserError.invalidFormatType(format) }
         return nil
     }
 }

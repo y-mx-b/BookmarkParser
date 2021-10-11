@@ -1,9 +1,13 @@
 import Foundation
 
-public enum BrowserBookmarkParserError: Error {
+public enum BookmarkParserError: Error {
+    // PARSING
     case noBookmarkFile(String)
     case emptyBookmarksFile(String)
     case improperBookmarkData
+    // CONVERSION
+    case invalidBrowser(Browser)
+    case invalidFormatType(FormatTypes)
 }
 
 public struct BookmarkParser {
@@ -14,13 +18,13 @@ public struct BookmarkParser {
         switch browser {
         // CHROMIUM
         case .chromium, .chrome, .brave, .edge:
-            return try ChromiumBookmarkParser().getBookmarks(from: bookmarksFilePath)
+            return try ChromiumBookmarkParser().getBookmarks(from: bookmarksFilePath, browser: browser)
         // SAFARI
         case .safari:
             return try SafariBookmarkParser().getBookmarks(from: bookmarksFilePath)
         // TODO add other browsers
         default:
-            return try ChromiumBookmarkParser().getBookmarks(from: bookmarksFilePath)
+            return try ChromiumBookmarkParser().getBookmarks(from: bookmarksFilePath, browser: browser)
         }
     }
 
@@ -28,7 +32,7 @@ public struct BookmarkParser {
         switch browser {
         // CHROMIUM
         case .chromium, .chrome, .brave, .edge:
-            let bookmarks = try ChromiumBookmarkParser().parseBookmarks(bookmarksDump)
+            let bookmarks = try ChromiumBookmarkParser().parseBookmarks(bookmarksDump, from: browser)
             return ChromiumBookmarkParser().returnBookmarks(bookmarks)!
         // SAFARI
         case .safari:
@@ -36,14 +40,24 @@ public struct BookmarkParser {
             return SafariBookmarkParser().returnBookmarks(bookmarks)!
         // TODO add other browsers
         default:
-            let bookmarks = try ChromiumBookmarkParser().parseBookmarks(bookmarksDump)
+            let bookmarks = try ChromiumBookmarkParser().parseBookmarks(bookmarksDump, from: browser)
             return ChromiumBookmarkParser().returnBookmarks(bookmarks)!
         }
     }
 
-    public func convert<T: Codable>(_ bookmarks: OnebookBookmarks, to: FormatTypes) throws -> T? {
-        return nil
+    public func convertBookmarks(_ bookmarks: OnebookBookmarks, to format: FormatTypes) throws -> Any? {
+        switch format {
+        // case .html:
+        case .json:
+            return try ChromiumBookmarkParser().convertBookmarks(bookmarks, to: format)
+        case .plist:
+            return try SafariBookmarkParser().convertBookmarks(bookmarks, to: format)
+        // case .sqlite:
+        case .onebook:
+            throw BookmarkParserError.invalidFormatType(format)
+        default:
+            throw BookmarkParserError.invalidFormatType(format)
+        }
     }
-
 }
 
