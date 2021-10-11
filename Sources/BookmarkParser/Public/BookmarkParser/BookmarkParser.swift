@@ -12,7 +12,7 @@ public enum BookmarkParserError: Error {
 
 public struct BookmarkParser {
     public var browser: Browser
-    public var bookmarksFilePath: String? { BookmarkPaths[browser] }
+    public var bookmarksFilePath: String? { bookmarkPaths[browser] }
 
     public init(browser: Browser) {
         self.browser = browser

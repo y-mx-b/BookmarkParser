@@ -1,7 +1,7 @@
 import Foundation
 
 #if os(macOS)
-public let BookmarkPaths: [Browser: String] = [
+public let bookmarkPaths: [Browser: String] = [
     .chromium: "\(NSHomeDirectory())/Library/Application Support/Chromium/Default/Bookmarks",
     .chrome: "\(NSHomeDirectory())/Library/Application Support/Google/Chrome/Default/Bookmarks",
     .brave: "\(NSHomeDirectory())/Library/Application Support/BraveSoftware/Brave-Browser/Default/Bookmarks",
@@ -11,7 +11,7 @@ public let BookmarkPaths: [Browser: String] = [
     .qutebrowser: ""
 ]
 #elseif os(Linux)
-public let BookmarkPaths: [Browser: String] = [
+public let bookmarkPaths: [Browser: String] = [
     .chromium: "\(NSHomeDirectory())/.config/chromium/Default/Bookmarks",
     .chrome: "\(NSHomeDirectory())/.config/google-chrome/Default/Bookmarks",
     .brave: "\(NSHomeDirectory())/.config/BraveSoftware/Brave-Browser/Default/Bookmarks",
