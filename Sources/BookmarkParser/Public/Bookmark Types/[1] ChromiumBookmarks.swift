@@ -6,18 +6,18 @@ public struct Roots: Codable {
     let synced: ChromiumChildren
 }
 
-public struct ChromiumChildren: Codable {
-    let children: [ChromiumChildren]?
-    let date_added: String
-    let guid: String
-    let id: String
-    let name: String
-    let type: String
-    let url: String?
+public struct ChromiumChildren: OnebookItem, Codable {
+    public let name: String
+    public let url: String?
+    public let children: [ChromiumChildren]?
+    // let date_added: String
+    // let guid: String
+    // let id: String
+    // let type: String
 }
 
 public struct ChromiumBookmarks: Codable {
-    let checksum: String
+    // let checksum: String
     let roots: Roots
-    let version: Int
+    // let version: Int
 }

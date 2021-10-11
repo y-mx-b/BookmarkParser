@@ -8,7 +8,7 @@ protocol BrowserBookmarkParser {
 
     func getBookmarks(from bookmarksFilePath: String, browser: Browser) throws -> Data
     func parseBookmarks(_ bookmarksDump: Data, from browser: Browser) throws -> BookmarkType
-    func returnBookmarks(_ bookmarks: BookmarkType) -> OnebookBookmarks?
-    func convertBookmarks(_ bookmarks: OnebookBookmarks, to format: FormatTypes) throws -> BookmarkType?
+    func returnBookmarks(_ bookmarks: BookmarkType) -> [OnebookChildren]?
+    func convertBookmarks(_ bookmarkData: Data, to format: FormatTypes) throws -> BookmarkType?
 }
 

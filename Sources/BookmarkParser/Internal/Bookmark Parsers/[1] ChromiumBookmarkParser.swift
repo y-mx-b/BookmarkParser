@@ -38,11 +38,22 @@ struct ChromiumBookmarkParser: BrowserBookmarkParser {
         return bookmarks
     }
 
-    func returnBookmarks(_ bookmarks: BookmarkType) -> OnebookBookmarks? {
-        return nil
+    func returnBookmarks(_ bookmarks: BookmarkType) -> [OnebookChildren]? {
+        let encoder = JSONEncoder()
+        let decoder = JSONDecoder()
+
+        let bookmark_bar_data = try! encoder.encode(bookmarks.roots.bookmark_bar)
+        let other_data = try! encoder.encode(bookmarks.roots.other)
+        let synced_data = try! encoder.encode(bookmarks.roots.synced)
+
+        let bookmarkBar = try! decoder.decode(OnebookChildren.self, from: bookmark_bar_data)
+        let other = try! decoder.decode(OnebookChildren.self, from: other_data)
+        let synced = try! decoder.decode(OnebookChildren.self, from: synced_data)
+
+        return [bookmarkBar, other, synced]
     }
 
-    func convertBookmarks(_ bookmarks: OnebookBookmarks, to format: FormatTypes) throws -> BookmarkType? {
+    func convertBookmarks(_ bookmarks: Data, to format: FormatTypes) throws -> BookmarkType? {
         guard format == .json else { throw BookmarkParserError.invalidFormatType(format) }
         return nil
     }

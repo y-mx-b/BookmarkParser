@@ -26,11 +26,11 @@ struct SafariBookmarkParser: BrowserBookmarkParser {
         return bookmarks
     }
 
-    func returnBookmarks(_ bookmarks: BookmarkType) -> OnebookBookmarks? {
+    func returnBookmarks(_ bookmarks: BookmarkType) -> [OnebookChildren]? {
         return nil
     }
 
-    func convertBookmarks(_ bookmarks: OnebookBookmarks, to format: FormatTypes) throws -> BookmarkType? {
+    func convertBookmarks(_ bookmarks: Data, to format: FormatTypes) throws -> BookmarkType? {
         guard format == .plist else { throw  BookmarkParserError.invalidFormatType(format) }
         return nil
     }
