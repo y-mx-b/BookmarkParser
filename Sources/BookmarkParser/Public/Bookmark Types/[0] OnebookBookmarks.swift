@@ -11,6 +11,12 @@ public struct OnebookChildren: OnebookItem  {
     public let name: String
     public let url: String?
     public let children: [OnebookChildren]?
+
+    public init(name: String, url: String?, children: [OnebookChildren]?) {
+        self.name = name
+        self.url = url
+        self.children = children
+    }
 }
 
 public struct OnebookBookmarks: Codable {
@@ -30,7 +36,7 @@ public struct OnebookChildrenWrapper: OnebookItem, Codable {
     private let _url: () -> String?
     private let _children: () -> [OnebookChildrenWrapper]?
 
-    init(_ item: OnebookChildren) {
+    public init(_ item: OnebookChildren) {
         self._name = { return item.name }
         self._url = { return item.url }
         self._children = {
