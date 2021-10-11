@@ -14,6 +14,10 @@ public struct BookmarkParser {
     public var browser: Browser
     public var bookmarksFilePath: String? { BookmarkPaths[browser] }
 
+    public init(browser: Browser) {
+        self.browser = browser
+    }
+
     public func getBookmarkData(from bookmarksFilePath: String, browser: Browser) throws -> Data {
         switch browser {
         // CHROMIUM
