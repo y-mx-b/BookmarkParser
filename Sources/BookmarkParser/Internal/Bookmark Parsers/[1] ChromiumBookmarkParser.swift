@@ -3,8 +3,8 @@ import Foundation
 struct ChromiumBookmarkParser: BrowserBookmarkParser {
     typealias BookmarkType = ChromiumBookmarks
 
-    let browser: [Browser] = [.chromium, .chrome, .brave, .edge]
-    let format: FormatTypes = .json
+    // let browser: [Browser] = [.chromium, .chrome, .brave, .edge]
+    // let format: FormatTypes = .json
 
     func getBookmarks(from bookmarksFilePath: String, browser: Browser) throws -> Data {
         let fm = FileManager.default

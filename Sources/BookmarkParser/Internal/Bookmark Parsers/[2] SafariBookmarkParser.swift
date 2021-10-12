@@ -3,8 +3,8 @@ import Foundation
 struct SafariBookmarkParser: BrowserBookmarkParser {
     typealias BookmarkType = SafariChildren
 
-    let browser: [Browser] = [.safari]
-    let format: FormatTypes = .plist
+    // let browser: [Browser] = [.safari]
+    // let format: FormatTypes = .plist
 
     func getBookmarks(from bookmarksFilePath: String, browser: Browser = .safari) throws -> Data {
         let fm = FileManager.default

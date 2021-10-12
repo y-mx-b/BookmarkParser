@@ -11,7 +11,7 @@ struct ChromiumChildren: OnebookItem, Codable {
 
     let name: String
     let url: String?
-    let children: [ChromiumChildren]?
+    let children: [ItemType]?
     // let date_added: String
     // let guid: String
     // let id: String

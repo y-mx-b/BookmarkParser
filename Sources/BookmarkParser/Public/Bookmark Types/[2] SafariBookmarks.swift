@@ -15,7 +15,7 @@ struct SafariChildren: OnebookItem, Codable {
         }
     }
     var url: String? { return self.URLString }
-    var children: [SafariChildren]? { return Children }
+    var children: [ItemType]? { return Children }
 
     // let WebBookmarkUUID: String
     let Title: String?
