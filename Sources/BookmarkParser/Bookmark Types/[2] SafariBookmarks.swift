@@ -1,10 +1,10 @@
 import Foundation
 
-struct SafariURIDictionary: Codable {
+public struct SafariURIDictionary: Codable {
     let title: String
 }
 
-struct SafariChildren: OnebookItem, Codable {
+public struct SafariChildren: OnebookItem, Codable {
     typealias ItemType = SafariChildren
 
     var name: String {

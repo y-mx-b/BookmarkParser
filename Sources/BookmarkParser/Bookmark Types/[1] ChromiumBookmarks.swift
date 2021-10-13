@@ -1,12 +1,12 @@
 import Foundation
 
-struct Roots: Codable {
+public struct Roots: Codable {
     let bookmark_bar: ChromiumChildren
     let other: ChromiumChildren
     let synced: ChromiumChildren
 }
 
-struct ChromiumChildren: OnebookItem, Codable {
+public struct ChromiumChildren: OnebookItem, Codable {
     typealias ItemType = ChromiumChildren
 
     let name: String
@@ -18,7 +18,7 @@ struct ChromiumChildren: OnebookItem, Codable {
     // let type: String
 }
 
-struct ChromiumBookmarks: Codable {
+public struct ChromiumBookmarks: Codable {
     // let checksum: String
     let roots: Roots
     // let version: Int
