@@ -1,38 +1,49 @@
+public enum BookmarkConversionError: Error {
+    case invalidFormatType(FormatTypes)
+}
 public struct BookmarkConverter {
-    func convert<BookmarkType: OnebookItem>(_ bookmark: BookmarkType) -> OnebookChildren? {
-        guard let _ = bookmark.children else {
-            return OnebookChildren(name: bookmark.name, url: bookmark.url, children: nil)
-        }
-        return OnebookChildren(name: bookmark.name, url: bookmark.url, children: convert(bookmark.children!))
+    func convert<BookmarkType: OnebookItem>(_ bookmark: BookmarkType) -> OnebookChildren {
+        return OnebookChildren(name: bookmark.name, url: bookmark.url, children: convert(bookmark.children ?? []))
     }
 
     func convert<BookmarkType: OnebookItem>(_ bookmarks: [BookmarkType]) -> [OnebookChildren] {
-        let array: () -> [OnebookChildren] = {
-            var outputBookmarks: [OnebookChildren] = []
-            for bookmark in bookmarks {
-                let name = bookmark.name
-                let url = bookmark.url
-                let children: () -> [OnebookChildren]? = {
-                    var output: [OnebookChildren]? = []
-                    guard let array = bookmark.children else { return nil }
-                    for child in array {
-                        if let _ = child.children {
-                            output!.append(OnebookChildren(name: child.name, url: child.url, children: nil))
-                        }
-                        output!.append(OnebookChildren(name: child.name, url: child.url,
-                                                       children: convert(child.children!)))
-                    }
-                    return output
-                }
-                outputBookmarks.append(OnebookChildren(name: name, url: url, children: children()))
-            }
-            return outputBookmarks
+        var outputBookmarks: [OnebookChildren] = []
+        for bookmark in bookmarks {
+            outputBookmarks.append(convert(bookmark))
         }
-        return array()
+        return outputBookmarks
     }
 
-    func convert<BookmarkType: OnebookItem>(_ bookmarks: OnebookChildren, to output: FormatTypes) -> BookmarkType? {
-        return nil
+    func convert(_ bookmark: OnebookChildren, to format: FormatTypes) throws -> Any {
+        switch format {
+        case .json:
+            return ChromiumChildren(name: bookmark.name, url: bookmark.url,
+                                    children: try convert(bookmark.children ?? [], to: format) as? [ChromiumChildren])
+        case .plist:
+            return SafariChildren(name: bookmark.name, url: bookmark.url,
+                                  children: try convert(bookmark.children ?? [], to: format) as? [SafariChildren])
+        default:
+            throw BookmarkConversionError.invalidFormatType(format)
+        }
+    }
+
+    func convert(_ bookmarks: [OnebookChildren], to format: FormatTypes) throws -> [Any] {
+        switch format {
+        case .json:
+            var outputBookmarks: [ChromiumChildren] = []
+            for bookmark in bookmarks {
+                outputBookmarks.append(try convert(bookmark, to: format) as! ChromiumChildren)
+            }
+            return outputBookmarks
+        case .plist:
+            var outputBookmarks: [SafariChildren] = []
+            for bookmark in bookmarks {
+                outputBookmarks.append(try convert(bookmark, to: format) as! SafariChildren)
+            }
+            return outputBookmarks
+        default:
+            throw BookmarkConversionError.invalidFormatType(format)
+        }
     }
 
 }
