@@ -7,15 +7,21 @@ public struct Roots: Codable {
 }
 
 public struct ChromiumChildren: OnebookItem, Codable {
-    typealias ItemType = ChromiumChildren
+    public typealias ItemType = ChromiumChildren
 
-    let name: String
-    let url: String?
-    let children: [ItemType]?
+    public let name: String
+    public let url: String?
+    public let children: [ItemType]?
     // let date_added: String
     // let guid: String
     // let id: String
     // let type: String
+
+    public init(name: String, url: String?, children: [ItemType]?) {
+        self.name = name
+        self.url = url
+        self.children = children
+    }
 }
 
 public struct ChromiumBookmarks: Codable {
