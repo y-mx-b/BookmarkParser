@@ -1,9 +1,15 @@
 import Foundation
 
 public struct Roots: Codable {
-    let bookmark_bar: ChromiumChildren
-    let other: ChromiumChildren
-    let synced: ChromiumChildren
+    public let bookmark_bar: ChromiumChildren
+    public let other: ChromiumChildren
+    public let synced: ChromiumChildren
+
+    public init(bookmark_bar: ChromiumChildren, other: ChromiumChildren, synced: ChromiumChildren) {
+        self.bookmark_bar = bookmark_bar
+        self.other = other
+        self.synced = synced
+    }
 }
 
 public struct ChromiumChildren: OnebookItem, Codable {
@@ -26,6 +32,9 @@ public struct ChromiumChildren: OnebookItem, Codable {
 
 public struct ChromiumBookmarks: Codable {
     // let checksum: String
-    let roots: Roots
+    public let roots: Roots
     // let version: Int
+    public init(roots: Roots) {
+        self.roots = roots
+    }
 }
