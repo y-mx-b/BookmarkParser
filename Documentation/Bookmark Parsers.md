@@ -40,11 +40,9 @@ implemented as such:
 
 ```swift
 public enum BookmarkParserError: Error {
-    // PARSING
     case noBookmarkFile(String)
     case emptyBookmarksFile(String)
     case improperBookmarkData
-    // CONVERSION
     case invalidBrowser(Browser)
     case invalidFormatType(FormatTypes)
 }
