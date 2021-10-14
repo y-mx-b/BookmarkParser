@@ -20,4 +20,4 @@ Then, add the following under `.target` in `dependencies`:
 
 Then simply `import BookmarkParser` and you're done!
 
-For more information, check the documentation folder.
+For more information, check the [documentation folder](./Documentation/).
