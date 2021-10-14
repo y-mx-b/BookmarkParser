@@ -17,8 +17,21 @@ public enum BookmarkConversionError: Error {
 public protocol BookmarkParser {
     associatedtype BookmarkType
 
-    func getBookmarkData(from bookmarksFilePath: String, format: FormatTypes) throws -> Data
-    func parse(_ bookmarksDump: Data, format: FormatTypes) throws -> BookmarkType
-    func convert<ItemType: OnebookItem>(_ bookmark: ItemType, to format: FormatTypes) throws -> BookmarkType
-    func convert<ItemType: OnebookItem>(_ bookmark: [ItemType], to format: FormatTypes) throws -> [BookmarkType]
+    func getBookmarkData(from bookmarksFilePath: String) throws -> Data
+    func parse(_ bookmarksDump: Data) throws -> BookmarkType
+    func convert<ItemType: OnebookItem>(_ bookmark: ItemType) throws -> BookmarkType
+    func convert<ItemType: OnebookItem>(_ bookmark: [ItemType]) throws -> [BookmarkType]
+}
+
+func getBookmarkContents(from bookmarksFilePath: String) throws -> Data {
+    let fm = FileManager.default
+
+    guard fm.fileExists(atPath: bookmarksFilePath) else {
+        throw BookmarkParserError.noBookmarkFile(bookmarksFilePath)
+    }
+    guard let contents = fm.contents(atPath: bookmarksFilePath) else {
+        throw BookmarkParserError.emptyBookmarksFile(bookmarksFilePath)
+    }
+
+    return contents
 }

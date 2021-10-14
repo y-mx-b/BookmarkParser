@@ -3,26 +3,11 @@ import Foundation
 public struct ChromiumBookmarkParser: BookmarkParser {
     public typealias BookmarkType = ChromiumChildren
 
-    public func getBookmarkData(from bookmarksFilePath: String, format: FormatTypes = .json) throws -> Data {
-        let fm = FileManager.default
-
-        guard format == .json else {
-            throw BookmarkParserError.invalidFormatType(format)
-        }
-        guard fm.fileExists(atPath: bookmarksFilePath) else {
-            throw BookmarkParserError.noBookmarkFile(bookmarksFilePath)
-        }
-        guard let contents = fm.contents(atPath: bookmarksFilePath) else {
-            throw BookmarkParserError.emptyBookmarksFile(bookmarksFilePath)
-        }
-
-        return contents
+    public func getBookmarkData(from bookmarksFilePath: String) throws -> Data {
+        return try getBookmarkContents(from: bookmarksFilePath)
     }
 
-    public func parse(_ bookmarksDump: Data, format: FormatTypes = .json) throws -> BookmarkType {
-        guard format == .json else {
-            throw BookmarkParserError.invalidFormatType(format)
-        }
+    public func parse(_ bookmarksDump: Data) throws -> BookmarkType {
         guard let bookmarks = try? JSONDecoder().decode(BookmarkType.self, from: bookmarksDump) else {
             throw BookmarkParserError.improperBookmarkData
         }
@@ -30,17 +15,15 @@ public struct ChromiumBookmarkParser: BookmarkParser {
         return bookmarks
     }
 
-    public func convert<ItemType: OnebookItem>(_ bookmark: ItemType, to format: FormatTypes = .json) throws -> BookmarkType {
-        guard format == .json else { throw BookmarkConversionError.invalidFormatType(format) }
+    public func convert<ItemType: OnebookItem>(_ bookmark: ItemType) throws -> BookmarkType {
         return ChromiumChildren(name: bookmark.name, url: bookmark.url,
-                                children: try convert(bookmark.children ?? [], to: format))
+                                children: try convert(bookmark.children ?? []))
     }
 
-    public func convert<ItemType: OnebookItem>(_ bookmarks: [ItemType], to format: FormatTypes = .json) throws -> [BookmarkType] {
-        guard format == .json else { throw BookmarkConversionError.invalidFormatType(format) }
+    public func convert<ItemType: OnebookItem>(_ bookmarks: [ItemType]) throws -> [BookmarkType] {
         var outputBookmarks: [ChromiumChildren] = []
         for bookmark in bookmarks {
-            outputBookmarks.append(try convert(bookmark, to: format))
+            outputBookmarks.append(try convert(bookmark))
         }
         return outputBookmarks
     }
