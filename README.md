@@ -4,7 +4,7 @@ A Swift library for working with bookmarks from various browsers.
 
 NOTE: Currently, only Chromium-based browsers and Safari are supported.
 
-## Using Onebook
+## Using BookmarkParser
 
 First, include this line in your `Package.swift` file, under `dependencies`
 

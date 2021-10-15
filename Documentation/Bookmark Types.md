@@ -8,8 +8,11 @@ structs are represented by multiple structs that all comply with the `Codable`
 protocol.
 
 Each one of these item structs can represent either a bookmark or a folder, and
-they all share a common public initialization format: `init(name: String, url:
-String?, children: [ItemType]?)`
+they all share a common public initialization format:
+
+```swift
+init(name: String, url: String?, children: [ItemType]?)
+```
 
 The `ItemType` type is a type alias equivalent to the corresponding item
 struct.
@@ -41,7 +44,7 @@ Chromium bookmarks are JSON files structured like the following:
    "checksum": "[md5]",
    "roots": {
       "bookmark_bar": {
-            children": {
+            "children": {
                "children": {},
                "date_added": "",
                ...
@@ -96,5 +99,5 @@ properties `name`, `url`, and `children` in order to conform to the
 folders.  Otherwise, `URIDictionary` will be present in bookmarks and will
 contain `title`. Thus, both are optional values.
 
-Just as `ChromiumChildren` did, `SafariChildren` also has the `Children`
+Just like `ChromiumChildren`, `SafariChildren` also has the `Children`
 property which can contain other instances of `SafariChildren`.

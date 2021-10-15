@@ -42,7 +42,7 @@ public enum FormatTypes: String {
 It's an enum containing one case for each (to be) supported format. They all
 have raw values equivalent to their name.
 
-## bookmarkPaths
+## `bookmarkPaths`
 
 The `bookmarkPaths` dictionary has a separate implementation for each operating
 system. It's a dictionary of type `[Browser : String]`, containing one file
