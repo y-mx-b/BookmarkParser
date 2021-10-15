@@ -1,12 +1,5 @@
 import Foundation
 
-public protocol OnebookItem {
-    associatedtype ItemType: OnebookItem
-    var name: String { get }
-    var url: String? { get }
-    var children: [ItemType]? { get }
-}
-
 public struct OnebookChildren: OnebookItem, Codable {
     public typealias ItemType = OnebookChildren
 

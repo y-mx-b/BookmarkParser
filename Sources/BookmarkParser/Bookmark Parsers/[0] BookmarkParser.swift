@@ -23,6 +23,8 @@ public protocol BookmarkParser {
     func convert<ItemType: OnebookItem>(_ bookmark: [ItemType]) throws -> [BookmarkType]
 }
 
+
+// GLOBAL INTERNAL FUNCTION
 func getBookmarkContents(from bookmarksFilePath: String) throws -> Data {
     let fm = FileManager.default
 
