@@ -2,16 +2,9 @@ import Foundation
 
 public enum BookmarkParserError: Error {
     // PARSING
-    case noBookmarkFile(String)
-    case emptyBookmarksFile(String)
+    case noBookmarkFile(String) // return file location
+    case emptyBookmarksFile(String) // return file location
     case improperBookmarkData
-    // CONVERSION
-    case invalidBrowser(Browser)
-    case invalidFormatType(FormatTypes)
-}
-
-public enum BookmarkConversionError: Error {
-    case invalidFormatType(FormatTypes)
 }
 
 public protocol BookmarkParser {
@@ -24,7 +17,7 @@ public protocol BookmarkParser {
 }
 
 
-// GLOBAL INTERNAL FUNCTION
+// INTERNAL FUNCTIONS
 func getBookmarkContents(from bookmarksFilePath: String) throws -> Data {
     let fm = FileManager.default
 
