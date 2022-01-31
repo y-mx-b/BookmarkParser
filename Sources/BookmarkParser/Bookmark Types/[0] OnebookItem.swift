@@ -4,4 +4,3 @@ public protocol OnebookItem {
     var url: String? { get }
     var children: [ItemType]? { get }
 }
-

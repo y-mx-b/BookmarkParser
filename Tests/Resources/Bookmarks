@@ -1,0 +1,107 @@
+{
+   "checksum": "065f94b8d0e937ea3c4444c7cf627b99",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13281800200336942",
+            "guid": "8d7ef7f2-76d4-4227-a4fc-4c51717ba983",
+            "id": "6",
+            "name": "Carbon | Create and share beautiful images of your source code",
+            "type": "url",
+            "url": "https://carbon.now.sh/"
+         }, {
+            "date_added": "13285936347589349",
+            "guid": "27d449e3-941b-4b85-91f1-b4bef8b9dc71",
+            "id": "8",
+            "name": "BBC - Homepage",
+            "type": "url",
+            "url": "https://www.bbc.com/"
+         }, {
+            "children": [ {
+               "children": [  ],
+               "date_added": "13285936396919179",
+               "date_modified": "13285936396919179",
+               "guid": "9bfdb707-7ffd-44cb-bcf2-a2600fd21ef5",
+               "id": "11",
+               "name": "Nested Folder",
+               "type": "folder"
+            }, {
+               "date_added": "13285936499371122",
+               "guid": "faf2885f-44fa-4fad-b34e-8e8ce6cc9e65",
+               "id": "16",
+               "name": "Google",
+               "type": "url",
+               "url": "https://www.google.com/"
+            } ],
+            "date_added": "13285936386339357",
+            "date_modified": "13285936503363329",
+            "guid": "60ae8f27-0bda-49f8-8760-e94743e10387",
+            "id": "10",
+            "name": "Folder",
+            "type": "folder"
+         } ],
+         "date_added": "13281799679193314",
+         "date_modified": "13285936386340850",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "Bookmarks Bar",
+         "type": "folder"
+      },
+      "other": {
+         "children": [ {
+            "date_added": "13285936375576445",
+            "guid": "77edbcce-76f0-4e72-aea2-3d329c79fafd",
+            "id": "9",
+            "name": "Learn to Code — For Free — Coding Courses for Busy People",
+            "type": "url",
+            "url": "https://www.freecodecamp.org/"
+         }, {
+            "children": [ {
+               "children": [  ],
+               "date_added": "13285936415258027",
+               "date_modified": "13285936415258027",
+               "guid": "e479743a-d584-406a-982d-95576b8470d9",
+               "id": "13",
+               "name": "Nested Folder",
+               "type": "folder"
+            }, {
+               "date_added": "13285936465570900",
+               "guid": "e1cf1655-ee49-4e6b-9b3e-8f89a5e15c6c",
+               "id": "15",
+               "name": "GitHub",
+               "type": "url",
+               "url": "https://github.com/"
+            } ],
+            "date_added": "13285936405064107",
+            "date_modified": "13285936499371122",
+            "guid": "b990610d-a88f-4a59-b08f-1a071134c5a2",
+            "id": "12",
+            "name": "Folder",
+            "type": "folder"
+         }, {
+            "date_added": "13285936438697422",
+            "guid": "75b76823-81c9-4019-af51-8abac9f38df2",
+            "id": "14",
+            "name": "Featured | Apple Developer Documentation",
+            "type": "url",
+            "url": "https://developer.apple.com/documentation"
+         } ],
+         "date_added": "13281799679193318",
+         "date_modified": "13285936465570900",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "Other Bookmarks",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13281799679193320",
+         "date_modified": "0",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "Mobile Bookmarks",
+         "type": "folder"
+      }
+   },
+   "version": 1
+}

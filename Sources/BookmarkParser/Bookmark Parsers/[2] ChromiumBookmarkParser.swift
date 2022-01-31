@@ -4,7 +4,7 @@ public struct ChromiumBookmarkParser: BookmarkParser {
     public typealias BookmarkType = ChromiumChildren
 
     public func getBookmarkData(from bookmarksFilePath: String) throws -> Data {
-        return try getBookmarkContents(from: bookmarksFilePath)
+        try getBookmarkContents(from: bookmarksFilePath)
     }
 
     public func parse(_ bookmarksDump: Data) throws -> BookmarkType {
@@ -16,8 +16,11 @@ public struct ChromiumBookmarkParser: BookmarkParser {
     }
 
     public func convert<ItemType: OnebookItem>(_ bookmark: ItemType) throws -> BookmarkType {
-        return ChromiumChildren(name: bookmark.name, url: bookmark.url,
-                                children: try convert(bookmark.children ?? []))
+        ChromiumChildren(
+            name: bookmark.name,
+            url: bookmark.url,
+            children: try convert(bookmark.children ?? [])
+        )
     }
 
     public func convert<ItemType: OnebookItem>(_ bookmarks: [ItemType]) throws -> [BookmarkType] {

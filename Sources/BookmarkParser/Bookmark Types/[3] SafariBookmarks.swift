@@ -12,14 +12,15 @@ public struct SafariChildren: OnebookItem, Codable {
     public typealias ItemType = SafariChildren
 
     public var name: String {
-        if let _ = self.Title {
-            return self.Title!
+        if let _ = Title {
+            return Title!
         } else {
-            return self.URIDictionary!.title
+            return URIDictionary!.title
         }
     }
-    public var url: String? { return self.URLString }
-    public var children: [ItemType]? { return Children }
+
+    public var url: String? { URLString }
+    public var children: [ItemType]? { Children }
 
     // let WebBookmarkUUID: String
     let Title: String?
@@ -30,14 +31,14 @@ public struct SafariChildren: OnebookItem, Codable {
 
     public init(name: String, url: String?, children: [ItemType]?) {
         if url != nil {
-            self.URLString = url
-            self.Title = nil
-            self.URIDictionary = SafariURIDictionary(title: name)
+            URLString = url
+            Title = nil
+            URIDictionary = SafariURIDictionary(title: name)
         } else {
-            self.Title = name
-            self.URLString = nil
-            self.URIDictionary = nil
+            Title = name
+            URLString = nil
+            URIDictionary = nil
         }
-        self.Children = children
+        Children = children
     }
 }
